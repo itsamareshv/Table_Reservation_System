@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.DayOfWeek;
@@ -19,6 +20,8 @@ import java.util.Scanner;
 interface ReservationSystem {
 
 	public class Reservation extends Thread {
+
+		private static final String dataFilePath = "C:/Users/Amaresh/git/trs/Table_Reservation_System/reports/table_reservation_data.txt";
 
 		private static String path = null, tPath = "Booked";
 
@@ -69,7 +72,7 @@ interface ReservationSystem {
 					System.out.println("ID Length = " + s3.length());
 
 					try {
-						Scanner scan = new Scanner(new File("C:/Users/Amaresh/Documents/table_reservation_data.txt"));
+						Scanner scan = new Scanner(new File(dataFilePath));
 						while (scan.hasNext()) {
 							String line = scan.next();
 							if (line.equals(s3)) {
@@ -157,7 +160,7 @@ interface ReservationSystem {
 					System.out.println(data);
 
 					try {
-						FileWriter fw = new FileWriter("C:/Users/Amaresh/Documents/table_reservation_data.txt", true);
+						FileWriter fw = new FileWriter(dataFilePath, true);
 						for (int i = 0; i < 10; i++) {
 							fw.write(data.get(i) + "   ");
 						}
@@ -184,14 +187,15 @@ interface ReservationSystem {
 					System.out.println("Thank You We Would Love You To See You Soon");
 					System.exit(0);
 				}
-
+				sc.close();
+				st.close();
 			} while (true);
 
 		}
 
 		public void ViewReservation() {
 
-			String filePath = "C:/Users/Amaresh/Documents/table_reservation_data.txt";
+			String filePath = dataFilePath;
 			try {
 				FileInputStream fis = new FileInputStream(filePath);
 				int i = fis.read();
@@ -227,7 +231,7 @@ interface ReservationSystem {
 		public void viewReservationByID(String id) {
 
 			try {
-				Scanner scan = new Scanner(new File("C:/Users/Amaresh/Documents/table_reservation_data.txt"));
+				Scanner scan = new Scanner(new File(dataFilePath));
 				ArrayList<String> li = new ArrayList<String>();
 
 				while (scan.hasNext()) {
@@ -249,8 +253,7 @@ interface ReservationSystem {
 
 		public void deleteRbYid(String dID) throws FileNotFoundException, ClassNotFoundException, IOException {
 			try {
-				ArrayList<String> lf = new ArrayList<>(
-						Files.readAllLines(Paths.get("C:/Users/Amaresh/Documents/table_reservation_data.txt")));
+				ArrayList<String> lf = new ArrayList<>(Files.readAllLines(Paths.get(dataFilePath)));
 				System.out.println(lf);
 				System.out.println("----------------------------");
 				int ind = 0;
@@ -265,12 +268,12 @@ interface ReservationSystem {
 
 				System.out.println(lf);
 
-				File file = new File("C:/Users/Amaresh/Documents/table_reservation_data.txt");
+				File file = new File(dataFilePath);
 				PrintWriter writer = new PrintWriter(file);
 				writer.print("");
 				writer.close();
 
-				FileWriter fw = new FileWriter("C:/Users/Amaresh/Documents/table_reservation_data.txt", true);
+				FileWriter fw = new FileWriter(dataFilePath, true);
 				for (int i = 0; i < lf.size(); i++) {
 					fw.write(lf.get(i) + " \n ");
 
@@ -289,8 +292,7 @@ interface ReservationSystem {
 			try {
 				Scanner scd = new Scanner(System.in);
 				ListIterator li = null;
-				ArrayList<String> lf = new ArrayList<>(
-						Files.readAllLines(Paths.get("C:/Users/Amaresh/Documents/table_reservation_data.txt")));
+				ArrayList<String> lf = new ArrayList<>(Files.readAllLines(Paths.get(dataFilePath)));
 				System.out.println(lf);
 				System.out.println("----------------------------");
 				li = lf.listIterator();
@@ -307,7 +309,7 @@ interface ReservationSystem {
 
 		public void confByRiD(String cID) {
 			try {
-				Scanner scan = new Scanner(new File("C:/Users/Amaresh/Documents/table_reservation_data.txt"));
+				Scanner scan = new Scanner(new File(dataFilePath));
 
 				ArrayList lc = new ArrayList();
 				while (scan.hasNext()) {
@@ -322,13 +324,13 @@ interface ReservationSystem {
 					lc.set((ind + 9), "Confirmed");
 				}
 				System.out.println(lc);
-				File file = new File("C:/Users/Amaresh/Documents/table_reservation_data.txt");
+				File file = new File(dataFilePath);
 				PrintWriter writer = new PrintWriter(file);
 				writer.print("");
 				writer.close();
 
 				try {
-					FileWriter fw = new FileWriter("C:/Users/Amaresh/Documents/table_reservation_data.txt", true);
+					FileWriter fw = new FileWriter(dataFilePath, true);
 					for (int i = 0; i < lc.size(); i++) {
 						fw.write(lc.get(i) + "   ");
 						if ((i + 1) % 10 == 0) {
@@ -349,7 +351,7 @@ interface ReservationSystem {
 
 		public void cancByRiD(String caID) {
 			try {
-				Scanner scan = new Scanner(new File("C:/Users/Amaresh/Documents/table_reservation_data.txt"));
+				Scanner scan = new Scanner(new File(dataFilePath));
 
 				ArrayList lc = new ArrayList();
 				while (scan.hasNext()) {
@@ -372,13 +374,13 @@ interface ReservationSystem {
 						.println("-----------------------------------------------------------------------------------");
 				System.out.println(lc);
 
-				File file = new File("C:/Users/Amaresh/Documents/table_reservation_data.txt");
+				File file = new File(dataFilePath);
 				PrintWriter writer = new PrintWriter(file);
 				writer.print("");
 				writer.close();
 
 				try {
-					FileWriter fw = new FileWriter("C:/Users/Amaresh/Documents/table_reservation_data.txt", true);
+					FileWriter fw = new FileWriter(dataFilePath, true);
 					for (int i = 0; i < lc.size(); i++) {
 						fw.write(lc.get(i) + "   ");
 						if ((i + 1) % 10 == 0) {
@@ -402,7 +404,7 @@ interface ReservationSystem {
 		public void generateAll() {
 			try {
 				ArrayList lc = new ArrayList();
-				Scanner scan = new Scanner(new File("C:/Users/Amaresh/Documents/table_reservation_data.txt"));
+				Scanner scan = new Scanner(new File(dataFilePath));
 
 				while (scan.hasNext()) {
 					lc.add(scan.nextLine());
@@ -518,8 +520,7 @@ interface ReservationSystem {
 
 				ArrayList<String> nlist = new ArrayList<>();
 
-				ArrayList<String> lf = new ArrayList<>(
-						Files.readAllLines(Paths.get("C:/Users/Amaresh/Documents/table_reservation_data.txt")));
+				ArrayList<String> lf = new ArrayList<>(Files.readAllLines(Paths.get(dataFilePath)));
 				for (int i = 0; i < lf.size(); i++) {
 					String str = lf.get(i);
 					String s4 = str.trim();
@@ -633,7 +634,7 @@ interface ReservationSystem {
 			System.out.println("Enter Your Option");
 			int option = scan.nextInt();
 			try {
-				scan = new Scanner(new File("C:/Users/Amaresh/Documents/table_reservation_data.txt"));
+				scan = new Scanner(new File(dataFilePath));
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -671,7 +672,7 @@ interface ReservationSystem {
 
 			System.out.println(IDlist);
 			try {
-				Scanner scan1 = new Scanner(new File("C:/Users/Amaresh/Documents/table_reservation_data.txt"));
+				Scanner scan1 = new Scanner(new File(dataFilePath));
 
 				ArrayList<String> list1 = new ArrayList<String>();
 				while (scan1.hasNext()) {
@@ -703,7 +704,7 @@ interface ReservationSystem {
 			Scanner scan = new Scanner(System.in);
 			int option = scan.nextInt();
 			try {
-				scan = new Scanner(new File("C:/Users/Amaresh/Documents/table_reservation_data.txt"));
+				scan = new Scanner(new File(dataFilePath));
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -743,7 +744,7 @@ interface ReservationSystem {
 			System.out.println(IDlist);
 
 			try {
-				Scanner scan1 = new Scanner(new File("C:/Users/Amaresh/Documents/table_reservation_data.txt"));
+				Scanner scan1 = new Scanner(new File(dataFilePath));
 
 				ArrayList<String> list1 = new ArrayList<String>();
 				while (scan1.hasNext()) {
@@ -779,7 +780,7 @@ interface ReservationSystem {
 			System.out.println("Enter Your Option");
 			int option = scan.nextInt();
 			try {
-				scan = new Scanner(new File("C:/Users/Amaresh/Documents/table_reservation_data.txt"));
+				scan = new Scanner(new File(dataFilePath));
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -808,7 +809,7 @@ interface ReservationSystem {
 				break;
 			}
 			try {
-				Scanner scan1 = new Scanner(new File("C:/Users/Amaresh/Documents/table_reservation_data.txt"));
+				Scanner scan1 = new Scanner(new File(dataFilePath));
 
 				ArrayList<String> list1 = new ArrayList<String>();
 				while (scan1.hasNext()) {
@@ -843,8 +844,7 @@ interface ReservationSystem {
 				int option = scd.nextInt();
 				ArrayList<String> nlist = new ArrayList<>();
 
-				ArrayList<String> lf = new ArrayList<>(
-						Files.readAllLines(Paths.get("C:/Users/Amaresh/Documents/table_reservation_data.txt")));
+				ArrayList<String> lf = new ArrayList<>(Files.readAllLines(Paths.get(dataFilePath)));
 				System.out.println(lf);
 				System.out.println("----------------------------");
 				int ind = 0;
@@ -875,7 +875,7 @@ interface ReservationSystem {
 
 				System.out.println(nlist);
 				System.out.println(
-						"-------------------------------------END---------------------------------------------------------");
+						"-----------------------------------------------END---------------------------------------------------------");
 
 			} catch (Exception e) {
 
