@@ -194,10 +194,8 @@ interface ReservationSystem {
 		}
 
 		public void ViewReservation() {
-
-			String filePath = dataFilePath;
 			try {
-				FileInputStream fis = new FileInputStream(filePath);
+				FileInputStream fis = new FileInputStream(dataFilePath);
 				int i = fis.read();
 
 				System.out.println(
